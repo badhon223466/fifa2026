@@ -13,14 +13,8 @@ export default function WatchSection() {
   const [hlsLinks, setHlsLinks] = useState({ primary: config?.hls_primary, backup: config?.hls_backup });
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
-  const [hasStarted, setHasStarted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    // Reset hasStarted on player/channel switch
-    setHasStarted(false);
-  }, [playerType, activeChannel]);
 
   useEffect(() => {
     const unsub = onSnapshot(doc(db, 'settings', 'broadcast'), (snap) => {
@@ -138,39 +132,14 @@ export default function WatchSection() {
                       key={`iframe-${activeChannel?.id}-${refreshKey}`}
                       src={activeChannel?.url}
                       title={activeChannel?.name}
-                      allow="autoplay; fullscreen; encrypted-media; picture-in-picture; xr-spatial-tracking; clipboard-write;"
-                      sandbox="allow-forms allow-scripts allow-same-origin"
+                      allow="autoplay; fullscreen; encrypted-media; picture-in-picture; xr-spatial-tracking; clipboard-write"
                       allowFullScreen
                       className="absolute inset-0 w-full h-full border-0 z-10"
                       data-testid="iframe-player-main"
                       referrerPolicy="no-referrer"
                     />
                     
-                    {!hasStarted && (
-                      <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60 backdrop-blur-sm group/start transition-all duration-500">
-                         <div className="relative">
-                            {/* Pulse background */}
-                            <div className="absolute inset-0 bg-brand-green rounded-full animate-ping opacity-20" />
-                            
-                            <button 
-                              onClick={() => setHasStarted(true)}
-                              className="relative flex flex-col items-center gap-4 bg-brand-green hover:bg-white text-black p-8 rounded-full transition-all duration-300 transform hover:scale-110 shadow-[0_0_50px_rgba(0,230,118,0.4)]"
-                            >
-                               <Volume2 size={40} className="animate-bounce" />
-                               <span className="text-[10px] font-black uppercase tracking-[0.3em]">Unmute & Start</span>
-                            </button>
-                         </div>
-                         
-                         <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-                            <p className="text-[10px] font-black uppercase tracking-[0.4em] text-white/40">Secure Stream Active</p>
-                            <div className="flex gap-1">
-                               {[1,2,3].map(i => <div key={i} className="w-1 h-1 rounded-full bg-brand-green animate-pulse" style={{ animationDelay: `${i * 0.2}s` }} />)}
-                            </div>
-                         </div>
-                      </div>
-                    )}
-
-                    {/* Fallback Overlay (Z-index below iframe) */}
+                    {/* Fallback Overlay (Z-index below iframe so it only shows if iframe is transparent or blocked) */}
                     <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-950 p-8 text-center">
                        <ExternalLink size={32} className="text-neutral-700 mb-4" />
                        <p className="text-sm font-black uppercase tracking-tighter mb-2 text-white">Stream Security Active</p>
@@ -200,24 +169,8 @@ export default function WatchSection() {
                       controls={false}
                       className="w-full h-full object-contain"
                       playsInline
-                      muted={!hasStarted || isMuted}
                       onClick={() => setIsPlaying(!isPlaying)}
                     />
-                    
-                    {!hasStarted && (
-                      <div className="absolute inset-0 z-20 flex items-center justify-center bg-black/60 backdrop-blur-sm group/start transition-all duration-500">
-                         <div className="relative">
-                            <div className="absolute inset-0 bg-brand-green rounded-full animate-ping opacity-20" />
-                            <button 
-                              onClick={() => { setHasStarted(true); setIsMuted(false); if (videoRef.current) videoRef.current.muted = false; }}
-                              className="relative flex flex-col items-center gap-4 bg-brand-green hover:bg-white text-black p-8 rounded-full transition-all duration-300 transform hover:scale-110 shadow-[0_0_50px_rgba(0,230,118,0.4)]"
-                            >
-                               <Volume2 size={40} className="animate-bounce" />
-                               <span className="text-[10px] font-black uppercase tracking-[0.3em]">Unmute & Start</span>
-                            </button>
-                         </div>
-                      </div>
-                    )}
                     
                     {/* CUSTOM CONTROLS OVERLAY */}
                     <div className="absolute inset-x-0 bottom-0 p-6 bg-linear-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity">
