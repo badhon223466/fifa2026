@@ -69,8 +69,8 @@ window.__GOALSTREAM_CONFIG__ = {
     // AD CODES & STATIC BANNERS
     ads: {
         popunder_url: "",
-        top_banner_key: "e9ea26c4dbf4100e57d7df821e66c8bf",
-        leaderboard_key: "c4e3e5a2dbe394e11f2ac8c44c299741",
+        top_banner_key: "",
+        leaderboard_key: "",
         native_banner_container: "",
         native_banner_url: "",
         adsense_publisher_id: "",

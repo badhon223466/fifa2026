@@ -5,8 +5,6 @@ import LiveMatches from './components/LiveMatches';
 import MatchSchedule from './components/MatchSchedule';
 import NewsSection from './components/NewsSection';
 import WatchSection from './components/WatchSection';
-import BannerAd from './components/BannerAd';
-import LeaderboardAd from './components/LeaderboardAd';
 import TeamsAtoZ from './components/TeamsAtoZ';
 import LeaguesSection from './components/LeaguesSection';
 import Showcase from './components/Showcase';
@@ -40,11 +38,7 @@ function App() {
             
             <WatchSection />
             
-            <BannerAd />
-
             <LiveMatches />
-
-            <LeaderboardAd />
 
             <MatchSchedule />
             <NewsSection />
