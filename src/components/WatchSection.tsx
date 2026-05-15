@@ -133,12 +133,28 @@ export default function WatchSection() {
                       src={activeChannel?.url}
                       title={activeChannel?.name}
                       allow="autoplay; fullscreen; encrypted-media; picture-in-picture; xr-spatial-tracking; clipboard-write"
-                      sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-orientation-lock allow-pointer-lock"
                       allowFullScreen
                       className="absolute inset-0 w-full h-full border-0 z-10"
                       data-testid="iframe-player-main"
                       referrerPolicy="no-referrer"
                     />
+                    
+                    {/* Fallback Overlay (Z-index below iframe so it only shows if iframe is transparent or blocked) */}
+                    <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-950 p-8 text-center">
+                       <ExternalLink size={32} className="text-neutral-700 mb-4" />
+                       <p className="text-sm font-black uppercase tracking-tighter mb-2 text-white">Stream Security Active</p>
+                       <p className="text-[10px] text-neutral-500 font-bold uppercase tracking-widest max-w-[280px] mb-6">
+                         If the player doesn't load below, use the direct link button.
+                       </p>
+                       <a 
+                         href={activeChannel?.url}
+                         target="_blank"
+                         rel="noopener noreferrer"
+                         className="px-6 py-3 bg-white text-black font-black text-[10px] uppercase rounded-full transition-all hover:bg-brand-green"
+                       >
+                         Open Direct Player
+                       </a>
+                    </div>
                   </motion.div>
                 ) : (
                   <motion.div

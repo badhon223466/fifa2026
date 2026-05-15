@@ -138,9 +138,8 @@ export default function VideoSection() {
             src={embedUrl}
             title="Live Sports Broadcast" 
             allow="autoplay; fullscreen; encrypted-media" 
-            sandbox="allow-scripts allow-same-origin allow-forms allow-presentation allow-orientation-lock allow-pointer-lock"
             allowFullScreen 
-            className="absolute inset-0 w-full h-full border-0 z-10"
+            className="absolute inset-0 w-full h-full border-0 z-10 pointer-events-none"
             data-testid="iframe-player-1"
           ></iframe>
         )}
@@ -195,6 +194,25 @@ export default function VideoSection() {
            <span className="text-xl font-black italic tracking-tighter uppercase text-white drop-shadow-lg">
              TV<span className="text-brand-green">26</span>
            </span>
+        </div>
+        
+        {/* Fallback/Blocked Message Overlay - Only visible if nothing is playing */}
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-neutral-950 p-8 text-center bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-neutral-900 to-black pointer-events-auto">
+           <div className="mb-6 rounded-3xl bg-neutral-900 p-6 border border-neutral-800">
+              <ExternalLink size={32} className="text-neutral-700 mb-4 mx-auto" />
+              <p className="text-sm font-black uppercase tracking-tighter mb-2">Live Broadcast Connection</p>
+              <p className="text-[10px] text-neutral-500 font-bold uppercase tracking-widest max-w-[280px]">
+                Preview mode may restrict auto-playback. Click below for immediate high-definition access.
+              </p>
+           </div>
+           <a 
+             href={broadcastUrl}
+             target="_blank"
+             rel="noopener noreferrer"
+             className="px-8 py-4 bg-brand-green text-black font-black text-sm uppercase rounded-full transition-all hover:bg-white hover:scale-105 active:scale-95 shadow-xl shadow-brand-green/20"
+           >
+             Open Full Stream
+           </a>
         </div>
       </motion.div>
 
