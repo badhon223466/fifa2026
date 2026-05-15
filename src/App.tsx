@@ -5,14 +5,11 @@ import LiveMatches from './components/LiveMatches';
 import MatchSchedule from './components/MatchSchedule';
 import NewsSection from './components/NewsSection';
 import WatchSection from './components/WatchSection';
-import BannerAd from './components/BannerAd';
-import LeaderboardAd from './components/LeaderboardAd';
 import TeamsAtoZ from './components/TeamsAtoZ';
 import LeaguesSection from './components/LeaguesSection';
 import Showcase from './components/Showcase';
 import Footer from './components/Footer';
 import LoadingScreen from './components/LoadingScreen';
-import AdPlaceholder from './components/AdPlaceholder';
 import AdminPanel from './components/AdminPanel';
 import { useAdmin } from './hooks/useAdmin';
 import { Lock } from 'lucide-react';
@@ -41,25 +38,13 @@ function App() {
             
             <WatchSection />
 
-            <BannerAd />
-
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-4">
-              <AdPlaceholder position="in-content" />
-            </div>
-
             <LiveMatches />
-            
-            <LeaderboardAd />
 
             <MatchSchedule />
             <NewsSection />
             <TeamsAtoZ />
             <LeaguesSection />
             <Showcase />
-            
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
-              <AdPlaceholder position="footer" />
-            </div>
           </main>
 
           <Footer />

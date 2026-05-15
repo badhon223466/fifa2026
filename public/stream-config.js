@@ -68,25 +68,18 @@ window.__GOALSTREAM_CONFIG__ = {
 
     // AD CODES & STATIC BANNERS
     ads: {
-        popunder_url: "https://pl29452904.profitablecpmratenetwork.com/9b/a3/0a/9ba30af4fb25f6fe82bd3394de778286.js",
-        top_banner_key: "e9ea26c4dbf4100e57d7df821e66c8bf",
-        leaderboard_key: "c4e3e5a2dbe394e11f2ac8c44c299741",
-        native_banner_container: "container-088f78ae1a9a8ac91b28e8d69fb71acc",
-        native_banner_url: "https://pl28852010.effectivegatecpm.com/088f78ae1a9a8ac91b28e8d69fb71acc/invoke.js",
+        popunder_url: "",
+        top_banner_key: "",
+        leaderboard_key: "",
+        native_banner_container: "",
+        native_banner_url: "",
         adsense_publisher_id: "",
         adsense_slot: "",
         
-        // Custom Banners for different sections
         static_banners: {
-            header: [
-                { imageUrl: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200&auto=format&fit=crop", link: "#" }
-            ],
-            sidebar: [
-                { imageUrl: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=400&auto=format&fit=crop", link: "#" }
-            ],
-            footer: [
-                { imageUrl: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=1200&auto=format&fit=crop", link: "#" }
-            ]
+            header: [],
+            sidebar: [],
+            footer: []
         }
     }
 };

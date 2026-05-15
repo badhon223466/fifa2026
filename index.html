@@ -9,25 +9,6 @@
     <!-- Script for external configuration -->
     <script src="/stream-config.js"></script>
 
-    <!-- Ad Scripts -->
-    <script>
-        (function() {
-            var cfg = window.__GOALSTREAM_CONFIG__;
-            if (!cfg || !cfg.ads) return;
-            // Pop-Under
-            if (cfg.ads.popunder_url) {
-                var s1 = document.createElement('script');
-                s1.src = cfg.ads.popunder_url;
-                document.head.appendChild(s1);
-            }
-            // Monetag Push
-            if (cfg.ads.monetag_url) {
-                var s2 = document.createElement('script');
-                s2.src = cfg.ads.monetag_url;
-                document.head.appendChild(s2);
-            }
-        })();
-    </script>
   </head>
   <body class="bg-neutral-950">
     <div id="root"></div>

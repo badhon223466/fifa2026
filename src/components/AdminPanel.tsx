@@ -1,19 +1,17 @@
 import { useState, useEffect } from 'react';
-import { collection, doc, getDoc, setDoc, onSnapshot, serverTimestamp, deleteDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore';
 import { db, signInWithGoogle, logout } from '../lib/firebase';
 import { useAdmin } from '../hooks/useAdmin';
 import { motion, AnimatePresence } from 'motion/react';
-import { X, Save, Plus, Trash2, LogOut, Settings, Image as ImageIcon, Video } from 'lucide-react';
+import { X, Save, LogOut, Settings, Video } from 'lucide-react';
 
 export default function AdminPanel({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
-  const { user, isAdmin, loading: authLoading } = useAdmin();
+  const { user, isAdmin } = useAdmin();
   const [videoUrl, setVideoUrl] = useState('');
   const [videoTitle, setVideoTitle] = useState('');
   const [hlsPrimary, setHlsPrimary] = useState('');
   const [hlsBackup, setHlsBackup] = useState('');
   const [saving, setSaving] = useState(false);
-  const [ads, setAds] = useState<any[]>([]);
-  const [newAd, setNewAd] = useState({ imageUrl: '', link: '', position: 'header' });
 
   useEffect(() => {
     if (!isAdmin) return;
@@ -36,13 +34,6 @@ export default function AdminPanel({ isOpen, onClose }: { isOpen: boolean; onClo
       }
     };
     fetchSettings();
-
-    // Listen to ads
-    const unsub = onSnapshot(collection(db, 'ads'), (snap) => {
-      setAds(snap.docs.map(d => ({ id: d.id, ...d.data() })));
-    });
-
-    return unsub;
   }, [isAdmin]);
 
   const handleSaveSettings = async () => {
@@ -61,27 +52,6 @@ export default function AdminPanel({ isOpen, onClose }: { isOpen: boolean; onClo
       alert('Failed to save settings');
     } finally {
       setSaving(false);
-    }
-  };
-
-  const handleAddAd = async () => {
-    if (!newAd.imageUrl) return;
-    try {
-      const id = Date.now().toString();
-      await setDoc(doc(db, 'ads', id), {
-        ...newAd,
-        isActive: true,
-        createdAt: serverTimestamp()
-      });
-      setNewAd({ imageUrl: '', link: '', position: 'header' });
-    } catch (err) {
-      console.error(err);
-    }
-  };
-
-  const handleDeleteAd = async (id: string) => {
-    if (confirm('Delete this ad?')) {
-      await deleteDoc(doc(db, 'ads', id));
     }
   };
 
@@ -189,68 +159,6 @@ export default function AdminPanel({ isOpen, onClose }: { isOpen: boolean; onClo
                 >
                   <Save size={18} /> {saving ? 'Saving...' : 'Update Broadcast'}
                 </button>
-              </section>
-
-              <hr className="border-neutral-800" />
-
-              {/* Ad Management */}
-              <section className="space-y-6">
-                 <div className="flex items-center gap-2 mb-4">
-                   <ImageIcon size={18} className="text-brand-green" />
-                   <h3 className="font-black uppercase tracking-widest text-xs text-neutral-400">Manage Banners</h3>
-                </div>
-
-                <div className="bento-card p-6 bg-black/30 space-y-4">
-                   <div className="grid gap-4 md:grid-cols-3">
-                      <input 
-                        placeholder="Banner Image URL"
-                        value={newAd.imageUrl}
-                        onChange={e => setNewAd({...newAd, imageUrl: e.target.value})}
-                        className="bg-black border border-neutral-800 rounded-xl px-4 py-2 text-sm"
-                      />
-                      <input 
-                        placeholder="Redirect Link"
-                        value={newAd.link}
-                        onChange={e => setNewAd({...newAd, link: e.target.value})}
-                        className="bg-black border border-neutral-800 rounded-xl px-4 py-2 text-sm"
-                      />
-                      <select 
-                        value={newAd.position}
-                        onChange={e => setNewAd({...newAd, position: e.target.value})}
-                        className="bg-black border border-neutral-800 rounded-xl px-4 py-2 text-sm"
-                      >
-                         <option value="header">Header</option>
-                         <option value="sidebar">Sidebar</option>
-                         <option value="footer">Footer</option>
-                      </select>
-                   </div>
-                   <button 
-                     onClick={handleAddAd}
-                     className="flex items-center gap-2 px-6 py-3 bg-white text-black font-black uppercase rounded-xl hover:bg-brand-green transition-all"
-                   >
-                     <Plus size={18} /> Create Banner
-                   </button>
-                </div>
-
-                <div className="grid gap-4">
-                   {ads.map(ad => (
-                     <div key={ad.id} className="flex items-center justify-between p-4 bg-neutral-900 border border-neutral-800 rounded-2xl">
-                        <div className="flex items-center gap-4">
-                           <img src={ad.imageUrl} alt="" className="w-16 h-10 object-cover rounded-lg bg-black" />
-                           <div>
-                              <p className="text-[10px] font-black uppercase tracking-widest text-brand-green">{ad.position}</p>
-                              <p className="text-xs font-bold text-neutral-400 truncate max-w-[200px]">{ad.link}</p>
-                           </div>
-                        </div>
-                        <button 
-                          onClick={() => handleDeleteAd(ad.id)}
-                          className="p-3 text-neutral-500 hover:text-red-500 transition-colors"
-                        >
-                           <Trash2 size={18} />
-                        </button>
-                     </div>
-                   ))}
-                </div>
               </section>
             </>
           )}
