@@ -64,22 +64,5 @@ window.__GOALSTREAM_CONFIG__ = {
             kickoff: "2026-04-23 22:00",
             status: "upcoming"
         }
-    ],
-
-    // AD CODES & STATIC BANNERS
-    ads: {
-        popunder_url: "",
-        top_banner_key: "",
-        leaderboard_key: "",
-        native_banner_container: "",
-        native_banner_url: "",
-        adsense_publisher_id: "",
-        adsense_slot: "",
-        
-        static_banners: {
-            header: [],
-            sidebar: [],
-            footer: []
-        }
-    }
+    ]
 };
