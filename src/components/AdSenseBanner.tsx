@@ -24,10 +24,11 @@ export default function AdSenseBanner() {
   if (!ads?.adsense_publisher_id) return null;
 
   return (
-    <div className="w-full flex justify-center bg-background py-8 border-t border-white/5">
+    <div className="w-full flex flex-col items-center bg-black py-10 border-y border-white/5">
+      <div className="text-[10px] font-black text-neutral-600 uppercase tracking-[0.3em] mb-4">Advertisement</div>
       <ins
         className="adsbygoogle"
-        style={{ display: "block", minHeight: "90px", width: "100%" }}
+        style={{ display: "block", minHeight: "90px", width: "100%", maxWidth: "1200px" }}
         data-ad-client={ads.adsense_publisher_id}
         data-ad-slot={ads.adsense_slot}
         data-ad-format="horizontal"

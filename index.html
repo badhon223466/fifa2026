@@ -30,26 +30,6 @@
     </script>
   </head>
   <body class="bg-neutral-950">
-    <!-- Top Banner 468x60 -->
-    <div id="top-banner-wrap" style="text-align:center;background:#000;padding:6px 0;min-height:72px;display:flex;align-items:center;justify-content:center;"></div>
-    <script>
-        (function() {
-            var cfg = window.__GOALSTREAM_CONFIG__;
-            var key = cfg && cfg.ads && cfg.ads.top_banner_key;
-            if (!key) return;
-            window.atOptions = {
-                key: key,
-                format: 'iframe',
-                height: 60,
-                width: 468,
-                params: {}
-            };
-            var s = document.createElement('script');
-            s.src = 'https://www.highperformanceformat.com/' + key + '/invoke.js';
-            document.getElementById('top-banner-wrap').appendChild(s);
-        })();
-    </script>
-
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

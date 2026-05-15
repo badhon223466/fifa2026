@@ -5,8 +5,8 @@ import LiveMatches from './components/LiveMatches';
 import MatchSchedule from './components/MatchSchedule';
 import NewsSection from './components/NewsSection';
 import WatchSection from './components/WatchSection';
-import AdSenseBanner from './components/AdSenseBanner';
-import NativeBanner from './components/NativeBanner';
+import BannerAd from './components/BannerAd';
+import LeaderboardAd from './components/LeaderboardAd';
 import TeamsAtoZ from './components/TeamsAtoZ';
 import LeaguesSection from './components/LeaguesSection';
 import Showcase from './components/Showcase';
@@ -41,20 +41,25 @@ function App() {
             
             <WatchSection />
 
-            <NativeBanner />
+            <BannerAd />
 
-            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-              <AdPlaceholder position="header" />
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mt-4">
+              <AdPlaceholder position="in-content" />
             </div>
 
             <LiveMatches />
+            
+            <LeaderboardAd />
+
             <MatchSchedule />
             <NewsSection />
             <TeamsAtoZ />
             <LeaguesSection />
             <Showcase />
             
-            <AdSenseBanner />
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 mb-12">
+              <AdPlaceholder position="footer" />
+            </div>
           </main>
 
           <Footer />

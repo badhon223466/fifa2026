@@ -4,20 +4,23 @@ import { collection, query, where, onSnapshot } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
-export default function AdPlaceholder({ position = "in-content" }: { position?: "header" | "sidebar" | "in-content" }) {
+export default function AdPlaceholder({ position = "in-content" }: { position?: "header" | "sidebar" | "in-content" | "footer" }) {
   const [ads, setAds] = useState<any[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    // Firebase positions are header, sidebar, footer. Mapping "in-content" to footer for management
+    // Firebase positions are header, sidebar, footer. Mapping "in-content" to footer if needed, but since footer is now explicit we handle it
     const pos = position === "in-content" ? "footer" : position;
+    const config = (window as any).__GOALSTREAM_CONFIG__;
+    const staticAds = config?.ads?.static_banners?.[pos] || [];
+
     const q = query(collection(db, 'ads'), where('position', '==', pos), where('isActive', '==', true));
     
     const unsub = onSnapshot(q, (snap) => {
       if (!snap.empty) {
         setAds(snap.docs.map(doc => ({ id: doc.id, ...doc.data() })));
       } else {
-        setAds([]);
+        setAds(staticAds);
       }
       setCurrentIndex(0);
     });
@@ -38,6 +41,7 @@ export default function AdPlaceholder({ position = "in-content" }: { position?: 
     header: "relative mx-auto h-24 w-full max-w-4xl bg-neutral-900 border border-dashed border-neutral-800 flex items-center justify-center text-[10px] font-bold tracking-widest text-neutral-600 rounded-2xl my-4 uppercase overflow-hidden group/ad",
     sidebar: "relative h-64 w-full bg-neutral-900 border border-dashed border-neutral-800 flex items-center justify-center text-[10px] font-bold tracking-widest text-neutral-600 rounded-3xl uppercase overflow-hidden group/ad",
     "in-content": "relative h-32 w-full bg-neutral-900 border border-dashed border-neutral-800 flex items-center justify-center text-[10px] font-bold tracking-widest text-neutral-600 rounded-3xl my-8 uppercase overflow-hidden group/ad",
+    footer: "relative h-32 w-full bg-neutral-900 border border-dashed border-neutral-800 flex items-center justify-center text-[10px] font-bold tracking-widest text-neutral-600 rounded-3xl my-8 uppercase overflow-hidden group/ad",
   };
 
   const currentAd = ads[currentIndex];

@@ -1,9 +1,7 @@
 window.__GOALSTREAM_CONFIG__ = {
-
-    // ────────────────────────────────────────────────────────────
     // IFRAME CHANNELS (Player 1)
-    // ────────────────────────────────────────────────────────────
-    channels: [{
+    channels: [
+        {
             id: "starsp1",
             name: "Star Sports 1",
             tag: "HD",
@@ -29,16 +27,13 @@ window.__GOALSTREAM_CONFIG__ = {
         }
     ],
 
-    // ────────────────────────────────────────────────────────────
     // HLS DIRECT STREAM (.m3u8 link)
-    // ────────────────────────────────────────────────────────────
     hls_primary: "https://dz2.bhalocast.com:7059/hls/star1kibich2.m3u8?md5=bUoIjNIWC-KfYb_hRrzyJg&expires=1776872187&ch=star1kibich2&s=f1498429615704da04c8cebb1c2d3a5f",
     hls_backup: "https://kick.bhalocast.com:7059/hls/ptvscpr.m3u8?md5=YofZxjBw3whZUEdGgMObZw&expires=1772741901&ch=ptvscpr&s=ce39d4edeaa9071ed052526f7069bbc1",
 
-    // ────────────────────────────────────────────────────────────
-    // MATCHES — Full Schedule
-    // ────────────────────────────────────────────────────────────
-    matches: [{
+    // MATCHES
+    matches: [
+        {
             home: "Manchester City",
             away: "Real Madrid",
             league: "UCL Semi-Final",
@@ -68,82 +63,30 @@ window.__GOALSTREAM_CONFIG__ = {
             channel: "Star Sports 2",
             kickoff: "2026-04-23 22:00",
             status: "upcoming"
-        },
-        {
-            home: "Barcelona",
-            away: "Atletico Madrid",
-            league: "La Liga",
-            venue: "Camp Nou",
-            channel: "Sony Six",
-            kickoff: "2026-04-24 21:00",
-            status: "upcoming"
-        },
-        {
-            home: "Liverpool",
-            away: "Manchester United",
-            league: "Premier League",
-            venue: "Anfield",
-            channel: "Star Sports 1",
-            kickoff: "2026-04-25 17:30",
-            status: "upcoming"
-        },
-        {
-            home: "Juventus",
-            away: "AC Milan",
-            league: "Serie A",
-            venue: "Allianz Stadium",
-            channel: "DD Sports",
-            kickoff: "2026-04-26 19:45",
-            status: "upcoming"
-        },
-        {
-            home: "Borussia Dortmund",
-            away: "Bayer Leverkusen",
-            league: "Bundesliga",
-            venue: "Signal Iduna Park",
-            channel: "Star Sports 2",
-            kickoff: "2026-04-27 21:30",
-            status: "upcoming"
-        },
-        {
-            home: "Tottenham",
-            away: "Newcastle",
-            league: "Premier League",
-            venue: "Tottenham Stadium",
-            channel: "Star Sports 1",
-            kickoff: "2026-04-28 19:00",
-            status: "upcoming"
-        },
-        {
-            home: "Real Madrid",
-            away: "Sevilla",
-            league: "La Liga",
-            venue: "Santiago Bernabeu",
-            channel: "Sony Six",
-            kickoff: "2026-04-29 21:15",
-            status: "upcoming"
-        },
-        {
-            home: "Inter Milan",
-            away: "Napoli",
-            league: "Serie A",
-            venue: "San Siro",
-            channel: "DD Sports",
-            kickoff: "2026-04-30 19:45",
-            status: "upcoming"
         }
     ],
 
-    // ────────────────────────────────────────────────────────────
-    // AD CODES
-    // ────────────────────────────────────────────────────────────
+    // AD CODES & STATIC BANNERS
     ads: {
-        popunder_url: "https://pl28852006.effectivegatecpm.com/ec/3f/47/ec3f47292727446c750bc2c6a9cb98fd.js",
-        monetag_url: "https://omg10.com/4/10512439",
-        top_banner_key: "0430ba3a1f1f44580691c4c33ac229f9",
+        popunder_url: "https://pl29452904.profitablecpmratenetwork.com/9b/a3/0a/9ba30af4fb25f6fe82bd3394de778286.js",
+        top_banner_key: "e9ea26c4dbf4100e57d7df821e66c8bf",
+        leaderboard_key: "c4e3e5a2dbe394e11f2ac8c44c299741",
         native_banner_container: "container-088f78ae1a9a8ac91b28e8d69fb71acc",
         native_banner_url: "https://pl28852010.effectivegatecpm.com/088f78ae1a9a8ac91b28e8d69fb71acc/invoke.js",
-        adsense_publisher_id: "ca-pub-XXXXXXXXXXXXXXXX",
-        adsense_slot: "7777777777"
+        adsense_publisher_id: "",
+        adsense_slot: "",
+        
+        // Custom Banners for different sections
+        static_banners: {
+            header: [
+                { imageUrl: "https://images.unsplash.com/photo-1540747913346-19e32dc3e97e?q=80&w=1200&auto=format&fit=crop", link: "#" }
+            ],
+            sidebar: [
+                { imageUrl: "https://images.unsplash.com/photo-1508098682722-e99c43a406b2?q=80&w=400&auto=format&fit=crop", link: "#" }
+            ],
+            footer: [
+                { imageUrl: "https://images.unsplash.com/photo-1522778119026-d647f0596c20?q=80&w=1200&auto=format&fit=crop", link: "#" }
+            ]
+        }
     }
 };
