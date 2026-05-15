@@ -1,0 +1,51 @@
+{
+  "entities": {
+    "Setting": {
+      "title": "Application Settings",
+      "description": "Global configuration for the application",
+      "type": "object",
+      "properties": {
+        "broadcastUrl": {
+          "type": "string",
+          "description": "The URL for the live video broadcast"
+        },
+        "broadcastTitle": {
+          "type": "string",
+          "description": "The display title for the broadcast"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["broadcastUrl"]
+    },
+    "Ad": {
+      "title": "Advertisement",
+      "description": "Managed ads displayed in the app",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "imageUrl": { "type": "string" },
+        "link": { "type": "string" },
+        "position": { 
+          "type": "string",
+          "enum": ["header", "sidebar", "footer"]
+        },
+        "isActive": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["imageUrl", "position", "isActive"]
+    }
+  },
+  "firestore": {
+    "/settings/{settingId}": {
+      "schema": "Setting",
+      "description": "Collection for application global settings"
+    },
+    "/ads/{adId}": {
+      "schema": "Ad",
+      "description": "Collection for advertisements"
+    }
+  }
+}

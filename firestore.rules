@@ -1,0 +1,61 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Default deny
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // HELPER FUNCTIONS
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return isSignedIn() && (
+        request.auth.token.email == 'mdbadhon7734@gmail.com' &&
+        request.auth.token.email_verified == true
+      );
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() <= 128 && id.matches('^[a-zA-Z0-9_\\-]+$');
+    }
+
+    function incoming() {
+      return request.resource.data;
+    }
+
+    function existing() {
+      return resource.data;
+    }
+
+    // --- SETTINGS ---
+    match /settings/{settingId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(settingId) && isValidSetting(incoming());
+    }
+
+    function isValidSetting(data) {
+      return data.keys().hasAll(['broadcastUrl']) &&
+             data.broadcastUrl is string && data.broadcastUrl.size() <= 1000 &&
+             (!data.keys().hasAny(['broadcastTitle']) || (data.broadcastTitle is string && data.broadcastTitle.size() <= 200)) &&
+             (!data.keys().hasAny(['updatedAt']) || data.updatedAt == request.time);
+    }
+
+    // --- ADS ---
+    match /ads/{adId} {
+      allow read: if true;
+      allow write: if isAdmin() && isValidId(adId) && isValidAd(incoming());
+    }
+
+    function isValidAd(data) {
+      return data.keys().hasAll(['imageUrl', 'position', 'isActive']) &&
+             data.imageUrl is string && data.imageUrl.size() <= 1000 &&
+             data.position in ['header', 'sidebar', 'footer'] &&
+             data.isActive is bool &&
+             (!data.keys().hasAny(['link']) || (data.link is string && data.link.size() <= 1000)) &&
+             (!data.keys().hasAny(['createdAt']) || data.createdAt == request.time);
+    }
+  }
+}
